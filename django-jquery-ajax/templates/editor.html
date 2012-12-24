@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block extrahead %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.8.3.min.js" ></script>
+<script type="text/javascript">
+	$.ajaxSetup ({  
+	    cache: false  
+	});	
+	var ajax_load = "<img class='loading' src='{{ STATIC_URL }}img/load.gif' alt='loading...' />";
+	
+	$("*").ajaxStart(function(){
+		$("#loading").html(ajax_load);
+	});
+
+
+	$("*").ajaxStop(function(){
+		$("#loading").html("");
+	});
+	
+</script>
+
+{{ form.media }}
+
+{% endblock %}
+
+{% block content %}         
+		{{ form.content }}        
+{% endblock %} 

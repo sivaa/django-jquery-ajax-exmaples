@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, HttpResponse
+from django.shortcuts import render_to_response, HttpResponse, render
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
 from urllib import urlopen #@UnresolvedImport
@@ -43,6 +43,12 @@ def advanced(request):
 def advanced_handlers(request):
     return render_to_response('advanced_handlers.html', locals(), context_instance=RequestContext(request))
 
+from myapp.forms import PostForm
+
+def editor(request):
+    form = PostForm() # An unbound form
+    return render(request, 'editor.html', {'form': form, })
+    
 
 def ajax_load_basic(request):
     time.sleep(2)
