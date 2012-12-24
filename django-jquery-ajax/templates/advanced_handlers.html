@@ -1,0 +1,58 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+
+
+$(document).ready(function() {
+	
+
+	$("*").ajaxStart(function(){
+		$("#loading").html(ajax_load);
+	});
+
+
+	$("*").ajaxStop(function(){
+		$("#loading").html("");
+	});
+
+		
+		$("#ajax_event_handlers_success").click(function(){
+			$.ajax ("ajax/load_basic")
+				.done (function() 	{ alert("success"); }) 
+				.fail (function() 	{ alert("error"); }) 
+				.always (function() { alert("complete") });		
+		});
+		
+		$("#ajax_event_handlers_error").click(function(){
+			$.ajax ("ajax/error")
+				.done (function() 	{ alert("success"); }) 
+				.fail (function() 	{ alert("error"); }) 
+				.always (function() { alert("complete") });		
+		});		
+
+		$("#ajax_sync").click(function(){
+			$.ajax ( {
+				url:  "ajax/sync",				
+				async: false
+			}).done(function(data) {
+					$("#content").html(data);		
+			}); 
+		}); 		
+
+		
+	});	
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> Advanced Handlers <div id = "loading"></div> {% endblock %}
+
+{% block ajaxtype %}
+	 
+	<input type="submit" value="Event Handlers - Success" id="ajax_event_handlers_success" /> <br> <br> 
+	<input type="submit" value="Event Handlers - Error" id="ajax_event_handlers_error" /> <br> <br> 
+	<input type="submit" value="Sync AJAX" id="ajax_sync" /> <br>
+
+{% endblock %} 

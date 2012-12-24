@@ -1,0 +1,21 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		var loadUrl = "ajax/load_basic";
+		$("#load_basic").click(function(){			
+			$("#content")
+				.html(ajax_load)
+				.load(loadUrl);
+		});
+	 });	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> load() {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value="load()" id="load_basic" /> 
+{% endblock %} 

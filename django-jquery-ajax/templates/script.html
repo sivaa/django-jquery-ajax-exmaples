@@ -1,0 +1,25 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		var scriptUrl = "ajax/script";
+		$("#getScript").click(function(){
+			$("#content").html(ajax_load);
+			$.getScript(scriptUrl, function(){
+				$("#content").html("Script Loaded...");
+			});
+		});	
+
+	 });	
+	
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> load() Script {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value="Remote Script" id="getScript" />
+{% endblock %} 

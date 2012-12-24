@@ -1,0 +1,35 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+
+<script>
+	function loadContent() {
+		
+		var ajax_load = "<img class='loading' src='{{ STATIC_URL }}img/load.gif' alt='loading...' />";		
+		document.getElementById("content").innerHTML = ajax_load;
+		
+		var xmlhttp;
+		if (window.XMLHttpRequest) { // IE7+, Firefox, Chrome, Opera, Safari			
+			xmlhttp=new XMLHttpRequest(); 
+		} else { //IE6, IE5			
+		  	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+		}	
+		
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+		    	document.getElementById("content").innerHTML = xmlhttp.responseText;
+		    }
+		}
+		
+		xmlhttp.open("GET", "ajax/load_basic", true);
+		xmlhttp.send();
+	}
+</script>
+
+{% endblock %}
+
+{% block currentpage %} -> AJAX using Javascript {% endblock %}
+
+{% block ajaxtype %}
+	<input type="button" value="JS AJAX " onclick="loadContent()" />
+{% endblock %} 

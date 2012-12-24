@@ -1,0 +1,36 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		var jsonUrl = "ajax/json";
+		$("#getJSONForm").submit(function() {
+			$("#content").html(ajax_load);
+			$.getJSON(
+				jsonUrl,
+				{company: $("#q").val()},
+				function(json) {
+					var result = 	"<p> Last Traded Price is \"<strong>" + json.LastTradedPrice + "</strong>\"</p>" +
+									"<p> Last Traded Time  is \"<strong>" + json.LastTradedTime  + "</strong>\"</p>";
+					
+					$("#content").html(result);
+				}
+			);
+			return false;
+		});		
+
+	 });	
+	
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> load() JSON {% endblock %}
+
+{% block ajaxtype %}
+	<form id="getJSONForm">
+		<input type="text" value="RELIANCE" id="q" />
+		<input type="submit" value="Get Stock Details" id="getJSON" />
+	</form>
+{% endblock %} 

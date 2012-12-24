@@ -1,0 +1,26 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		var loadUrl = "ajax/load_basic";
+		$("#load_callback").click(function(){			
+			$("#content")
+				.html(ajax_load)
+				.load(loadUrl, null, my_callback);
+		});
+	 });	
+	
+	function my_callback(ajax_response) {
+		alert(ajax_response);
+	}
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> load() callback {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value="load() callback" id="load_callback" /> 
+{% endblock %} 

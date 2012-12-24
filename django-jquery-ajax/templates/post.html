@@ -1,0 +1,45 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		
+		var loadUrl = "ajax/post";
+		$("#post_yahoo").click(function(){
+			$("#content").html(ajax_load);
+			$.post(
+				loadUrl,
+				{company: "yahoo"},
+				function(responseText){
+					$("#content").html(responseText);
+				},
+				"html"
+			);
+		});
+		
+
+		$("#post_google").click(function(){
+			$("#content").html(ajax_load);
+			$.post(
+				loadUrl,
+				{company: "google"},
+				function(responseText){
+					$("#content").html(responseText);
+				},
+				"html"
+			);
+		});
+		
+	 });	
+	
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> POST {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value="POST (yahoo)" id="post_yahoo" /> <br> <br>
+	<input type="submit" value="POST (google)" id="post_google" />
+{% endblock %} 

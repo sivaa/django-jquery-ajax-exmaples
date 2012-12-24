@@ -1,0 +1,83 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+
+
+$(document).ready(function() {
+	
+
+	$("*").ajaxStart(function(){
+		$("#loading").html(ajax_load);
+	});
+
+
+	$("*").ajaxStop(function(){
+		$("#loading").html("");
+	});
+
+	
+		$("#ajax_callback").click(function(){
+			$.ajax ( {
+				url:  "ajax/load_basic",
+				success: function(data) {
+					$("#content").html(data);
+				}
+			}); 
+		 });	
+		
+		$("#ajax_get").click(function(){
+			$.ajax ( {
+				url:  "ajax/load_basic",
+				type: "GET",
+				cache: true
+			}).done(function(data) {
+					$("#content").html(data);		
+			}); 
+		}); 
+		 
+		$("#ajax_post_yahoo").click(function(){
+			$.ajax ( {
+				url:  "ajax/post",
+				type: "POST",
+				data: {company: "yahoo"}
+			}).done(function(data) {
+					$("#content").html(data);		
+			}); 
+		});
+		
+		$("#ajax_post_google").click(function(){
+			$.ajax ( {
+				url:  "ajax/post",
+				type: "POST",
+				data: {company: "google"}
+			}).done(function(data) {
+					$("#content").html(data);		
+			}); 
+		});
+		
+		$("#ajax_script").click(function(){
+			$.ajax ( {
+				url:  "ajax/script",
+				type: "GET",
+				dataType: "script"
+			}); 
+		});
+		
+		
+	});	
+	
+</script>
+{% endblock %}
+
+{% block currentpage %} -> Advanced <div id = "loading"></div> {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value=".ajax() callback" id="ajax_callback" /> <br> <br>  
+	<input type="submit" value=".ajax() GET (Cached)" id="ajax_get" /> <br> <br> 
+	<input type="submit" value=".ajax() POST (Yahoo)" id="ajax_post_yahoo" /> <br> <br> 
+	<input type="submit" value=".ajax() POST (Google)" id="ajax_post_google" /> <br> <br> 
+	<input type="submit" value=".ajax() Remote Script" id="ajax_script" /> <br> <br> 
+
+{% endblock %} 

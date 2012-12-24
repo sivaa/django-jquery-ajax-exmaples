@@ -1,0 +1,30 @@
+{% extends 'ajax_base.html' %}
+
+{% block extrahead %}
+{{ block.super }}
+<script>
+	$(document).ready(function() {
+		var loadUrl = "ajax/load_get";
+		$("#load_get_yahoo").click(function(){			
+			$("#content")
+				.html(ajax_load)
+				.load(loadUrl, "company=yahoo");
+		});
+		
+		$("#load_get_google").click(function(){			
+			$("#content")
+				.html(ajax_load)
+				.load(loadUrl, "company=google");
+		});
+
+	 });	
+		
+</script>
+{% endblock %}
+
+{% block currentpage %} -> load() GET {% endblock %}
+
+{% block ajaxtype %}
+	<input type="submit" value="load() GET (yahoo)" id="load_get_yahoo" /> <br> <br>
+	<input type="submit" value="load() GET (google)" id="load_get_google" />
+{% endblock %} 
